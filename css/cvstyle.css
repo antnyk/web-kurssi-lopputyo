@@ -68,7 +68,7 @@ li a:hover::after{
 }
 
 main {
-    background-color: #97a3a8;
+    background-color: #6497b1;
     display: flex;
     height: 100vh;
     align-items: center;
@@ -139,16 +139,16 @@ img, div, section {
 
 @media(max-width:768px){
     header{
-        /* this is temporary fix but is it good enought?*/
-        padding-left: 60px;
-        text-align: center;
-    }
-    main{
-        width: 100%;
-        height: auto;
+        display: flex;     
+        justify-content: space-between;
+        align-items: center; 
+        padding: 0 30px;
     }
     nav{
         position: static;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;  
     }
     nav ul{
         display: none;
@@ -173,10 +173,19 @@ img, div, section {
         text-decoration: none; 
         width: 20%;
     }
-    *{
-        /* this part is causing the issue */       
+    .contentLeft{
+        padding-right: 30px;
         width: 100%;
-        grid-template-columns: 1fr;
-        grid-template-rows: 100px auto auto 100px;
+    }
+    main{
+        height: auto;
+        display: grid;
+    }
+    .innerContent {
+        display: grid;
+        grid-template-columns: 1fr; 
+    }
+    *{
+        width: 100%;
     }
 }
