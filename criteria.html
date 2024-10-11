@@ -40,7 +40,7 @@
                 
             </aside>
             <article>
-                <p>(13/20)</p>
+                <p>(14/20)</p>
                 <h2>HTML CRITERIA</h2>
                 <section id="htmlCriteria1">
                     <h3>Html Criteria 1</h3>
@@ -60,7 +60,17 @@
                 <section id="htmlCriteria4">
                     <h3>Html Criteria 4</h3>
                     <p>Tables are effectively used.</p>
-                    <p>False</p>
+                    <table>
+                        <tr>
+                            <th>Category</th>
+                            <th>Number</th>
+                        </tr>
+                        <tr>
+                            <td>HTML</td>
+                            <td>4</td>
+                        </tr>
+                    </table>
+                    <p>True. Check Async Criteria 5.</p>
                 </section>
                 <section id="htmlCriteria5">
                     <h3>Html Criteria 5</h3>
@@ -105,7 +115,7 @@
                 <section id="jsCriteria2">
                     <h3>JS Criteria 2</h3>
                     <p>Multiple event listeners and basic DOM manipulations.</p>
-                    <p>False.</p>
+                    <p>True. DOM manipulation can be seeing used for ex. in Async Criteria 5. This page uses multiple event listeners to perform different kinds of tasks.</p>
                 </section>
                 <section id="jsCriteria3">
                     <h3>JS Criteria 3</h3>
@@ -125,25 +135,25 @@
 
                 <h2>Asynchronous Operations</h2>
                 <section id="asyncCriteria1">
-                    <h3>JS Criteria 1</h3>
+                    <h3>Async Criteria 1</h3>
                     <p>Use of timers.</p>
                     <button id="timerStartBtn">Start</button>
                     <button id="timerStoptBtn">Stop</button>
                     <p>True.</p>
                 </section>
                 <section id="asyncCriteria2">
-                    <h3>JS Criteria 2</h3>
+                    <h3>Async Criteria 2</h3>
                     <p>Successful implementation of an AJAX call or Fetch.</p>
                     <p>True. Check below Criteria 3.</p>
                 </section>
                 <section id="asyncCriteria3">
-                    <h3>JS Criteria 3</h3>
+                    <h3>Async Criteria 3</h3>
                     <p>Data from the asynchronous call is displayed on the webpage.</p>
                     <p id="weatherOulu"></p>
                     <p>True. This is current weather of Oulu made using fetch.</p>
                 </section>
                 <section id="asyncCriteria4">
-                    <h3>JS Criteria 4</h3>
+                    <h3>Async Criteria 4</h3>
                     <p>Error handling is implemented (for failed API calls, etc.).</p>
                     <img src="Images/Screenshot 2024-10-10 183555.png" alt="Example">
                     <p>True. Here is picture of error handling when getting weather data.</p>
@@ -151,10 +161,18 @@
                     <p>Example of failed fetching.</p>
                 </section>
                 <section id="asyncCriteria5">
-                    <h3>JS Criteria 5</h3>
+                    <h3>Async Criteria 5</h3>
                     <p>Effective use of asynchronous data to enhance user experience (like filtering, sorting).</p>
-                    <ul id="weatherList"></ul>
-                    <p>False. Under maintenance</p>
+                    <p>City alphabetical: <button id="cityAlphaASC">^</button> <button id="cityAlphaDESC">v</button></p>
+                    <p>Weather: <button id="weatherASC">^</button> <button id="weatherDESC">v</button></p>
+                    
+                    <table id="weatherTable">
+                        <tr>
+                            <th>City</th>
+                            <th>Weather</th>
+                        </tr>
+                    </table>
+                    <p>Sorting done. Make filtering.</p>
                 </section>
 
             </article>
