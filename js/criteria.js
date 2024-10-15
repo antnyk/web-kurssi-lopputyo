@@ -3,7 +3,7 @@ const weatherTable = document.getElementById('weatherTable')
 const alertButton = document.getElementById('alertBtn')
 const timerStoptButton = document.getElementById('timerStoptBtn')
 const timerStartButton = document.getElementById('timerStartBtn')
-// buttons to sort the weather table
+const resetWeatherTableButton = document.getElementById('resetWeatherTable')
 //sorting
 const weatherButtonAscending = document.getElementById('weatherASC')
 const weatherButtonDescenging = document.getElementById('weatherDESC')
@@ -15,19 +15,31 @@ const inputWeatherValue = document.getElementById('weatherValue')
 let timerOn
 let weatherTableData
 let weatherArray
-let oldWeatherArray
+let originalWeatherArray
 let sortWay
 
-weatherButtonAscending.addEventListener('click', ()=>sorter('wasc', weatherTableData))
-weatherButtonDescenging.addEventListener('click', ()=>sorter('wdesc', weatherTableData))
-cityButtonAscending.addEventListener('click', ()=>sorter('casc', weatherTableData))
-cityButtonDescending.addEventListener('click', ()=>sorter('cdesc', weatherTableData))
+weatherButtonAscending.addEventListener('click', ()=>sorter('wasc', weatherArray))
+weatherButtonDescenging.addEventListener('click', ()=>sorter('wdesc', weatherArray))
+cityButtonAscending.addEventListener('click', ()=>sorter('casc', weatherArray))
+cityButtonDescending.addEventListener('click', ()=>sorter('cdesc', weatherArray))
 
-inputWeatherValue.addEventListener('input', ()=>updateWeatherValue())
+inputWeatherValue.addEventListener('input', ()=>{
+    updateWeatherValue()
+    if (inputWeatherValue.value.length === 0){
+        sorter('wasc', originalWeatherArray)
+        inputWeatherValue.value = null
+    }
+})
+
+resetWeatherTableButton.addEventListener('click', ()=>{
+    sorter('wasc', originalWeatherArray)
+    weatherArray = originalWeatherArray
+    inputWeatherValue.value = null
+})
 
 document.addEventListener('DOMContentLoaded', ()=>{
     getMultipleWeather()
-    setTimeout(() => sorter('wasc', weatherTableData), 1000)
+    setTimeout(() => sorter('wasc', weatherArray), 1000)
 })
 
 alertButton.addEventListener('click', ()=>{
@@ -50,19 +62,20 @@ function isBigEnough(value) {
 }
 
 function updateWeatherValue(){
-    weatherArray = oldWeatherArray
+    // we filter trought the originalWeatherArray, that was made when whe fetched the weather data
+    weatherArray = originalWeatherArray
+
     let weatherList = []
-    console.log(weatherArray)
     for (let i of weatherArray){
         for (let j of i){
+            // adds data to weatherList if our data number is greater or equilavent to input number. Also checks that value has to be a number (what if the city is a number??? fix.)
             if (isBigEnough(j) && !isNaN(j)){
-                console.log(j)
                 weatherList.push(i)
             }
         }
     }
     weartherTableInsert(weatherList)
-    oldWeatherArray = weatherArray
+    // we change the weatherArray values here since we want them used in sorter()
     weatherArray = weatherList
 }
 
@@ -89,29 +102,29 @@ function task1Timer(){
     asyncCriteria1.append(text)
 }
 
-function sorter(type, data){
+function sorter(type, userArray){
     // by city ascending
     if (type=='casc'){
-        weatherArray.sort()
+        userArray.sort()
         sortWay = -1
     }
     // by city descending
     else if (type=='cdesc'){
-        weatherArray.sort()
+        userArray.sort()
         sortWay = 1
     }
     // by weather ascending
     else if (type=='wasc'){
-        weatherArray.sort((a, b) => a[1] - b[1])
+        userArray.sort((a, b) => a[1] - b[1])
         sortWay = 1
     }
     // by weather descending
     else if (type=='wdesc'){
-        weatherArray.sort((a, b) => a[1] - b[1])
+        userArray.sort((a, b) => a[1] - b[1])
         sortWay = -1
     }
 
-    weartherTableInsert(weatherArray)
+    weartherTableInsert(userArray)
 }
 
 async function getMultipleWeather(){
@@ -125,10 +138,6 @@ async function getMultipleWeather(){
     let lista = []
     for (let i = 0; i < latitudeList.length; i++){
         lista.push(url(latitudeList[i],longitudeList[i]))
-    }
-
-    for (let i of lista){
-        console.log(i)
     }
     
     try{
@@ -159,4 +168,5 @@ async function getMultipleWeather(){
         mapToBeSorted.set(citiesList[i], weatherTableData[i].current.temperature_2m)
     }
     weatherArray = Array.from(mapToBeSorted).sort()
+    originalWeatherArray = weatherArray
 }
