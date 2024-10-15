@@ -4,21 +4,30 @@ const alertButton = document.getElementById('alertBtn')
 const timerStoptButton = document.getElementById('timerStoptBtn')
 const timerStartButton = document.getElementById('timerStartBtn')
 // buttons to sort the weather table
+//sorting
 const weatherButtonAscending = document.getElementById('weatherASC')
 const weatherButtonDescenging = document.getElementById('weatherDESC')
 const cityButtonAscending = document.getElementById('cityAlphaASC')
 const cityButtonDescending = document.getElementById('cityAlphaDESC')
+// filtering
+const inputWeatherValue = document.getElementById('weatherValue')
 
 let timerOn
 let weatherTableData
+let weatherArray
+let oldWeatherArray
+let sortWay
 
 weatherButtonAscending.addEventListener('click', ()=>sorter('wasc', weatherTableData))
 weatherButtonDescenging.addEventListener('click', ()=>sorter('wdesc', weatherTableData))
 cityButtonAscending.addEventListener('click', ()=>sorter('casc', weatherTableData))
 cityButtonDescending.addEventListener('click', ()=>sorter('cdesc', weatherTableData))
 
+inputWeatherValue.addEventListener('input', ()=>updateWeatherValue())
+
 document.addEventListener('DOMContentLoaded', ()=>{
     getMultipleWeather()
+    setTimeout(() => sorter('wasc', weatherTableData), 1000)
 })
 
 alertButton.addEventListener('click', ()=>{
@@ -36,52 +45,73 @@ timerStoptButton.addEventListener('click', ()=>{
     timerOn = null
 })
 
+function isBigEnough(value) {
+    return value >= inputWeatherValue.value;
+}
+
+function updateWeatherValue(){
+    weatherArray = oldWeatherArray
+    let weatherList = []
+    console.log(weatherArray)
+    for (let i of weatherArray){
+        for (let j of i){
+            if (isBigEnough(j) && !isNaN(j)){
+                console.log(j)
+                weatherList.push(i)
+            }
+        }
+    }
+    weartherTableInsert(weatherList)
+    oldWeatherArray = weatherArray
+    weatherArray = weatherList
+}
+
+function weartherTableInsert(userArray){
+    // this makes sure the first row isn't deleted [City, Weather]
+    while (weatherTable.rows.length > 1){
+        weatherTable.deleteRow(1)
+    }
+    for(let i = 0; i < userArray.length; i++){
+        // creates a row
+        var row = weatherTable.insertRow(sortWay)
+        // inserts the infos on the row
+        var cell1 = row.insertCell(0)
+        var cell2 = row.insertCell(1)
+        cell1.innerHTML = `${userArray[i][0]}` 
+        cell2.innerHTML = `${userArray[i][1]}°C`
+    }
+}
+
 function task1Timer(){
     let text = document.createElement('p')
     text.textContent = 'It took a second for this to show up.'
     const asyncCriteria1 = document.getElementById('asyncCriteria1')
     asyncCriteria1.append(text)
-
 }
 
 function sorter(type, data){
-    console.log(weatherTable.rows.length)
-    //weatherTable.replaceChildren()
-    while (weatherTable.rows.length > 1){
-        weatherTable.deleteRow(1)
-    }
-    let sortWay
-    const mapToBeSorted = new Map()
-    let sortedArray
-    for(let i = 0; i < data.length; i++){
-        mapToBeSorted.set(citiesList[i], data[i].current.temperature_2m)
-    }
+    // by city ascending
     if (type=='casc'){
-        sortedArray = Array.from(mapToBeSorted).sort()
+        weatherArray.sort()
         sortWay = -1
     }
+    // by city descending
     else if (type=='cdesc'){
-        sortedArray = Array.from(mapToBeSorted).sort()
+        weatherArray.sort()
         sortWay = 1
     }
+    // by weather ascending
     else if (type=='wasc'){
-        sortedArray = Array.from(mapToBeSorted).sort((a, b) => a[1] - b[1])
+        weatherArray.sort((a, b) => a[1] - b[1])
         sortWay = 1
     }
+    // by weather descending
     else if (type=='wdesc'){
-        sortedArray = Array.from(mapToBeSorted).sort((a, b) => a[1] - b[1])
+        weatherArray.sort((a, b) => a[1] - b[1])
         sortWay = -1
-    }
-    console.log(sortedArray)
-    for(let i = 0; i < data.length; i++){
-        // creates a row
-        var row = weatherTable.insertRow(sortWay)
-        var cell1 = row.insertCell(0)
-        var cell2 = row.insertCell(1)
-        cell1.innerHTML = `${sortedArray[i][0]}` 
-        cell2.innerHTML = `${sortedArray[i][1]}°C`
     }
 
+    weartherTableInsert(weatherArray)
 }
 
 async function getMultipleWeather(){
@@ -115,26 +145,18 @@ async function getMultipleWeather(){
                 throw new Error ('Error in some url link')
             }
         }
-        // testing setTimeout
-        await new Promise(resolve => setTimeout(resolve, 1000));
         // goes trought the res in order for us to get the json data
         const data = await Promise.all(res.map(json => json.json()))
 
-        /*
-        for(let i = 0; i < data.length; i++){
-            // creates a row
-            var row = weatherTable.insertRow(1)
-            var cell1 = row.insertCell(0)
-            var cell2 = row.insertCell(1)
-            cell1.innerHTML = `${citiesList[i]}` 
-            cell2.innerHTML = `${data[i].current.temperature_2m}°C`
-        }
-        //listItem.textContent = data.map(i => i.current.temperature_2m)
-        */
         weatherTableData = data
     }
     catch (e) {
         console.error(e.message)
     }
-    
+
+    const mapToBeSorted = new Map()
+    for(let i = 0; i < weatherTableData.length; i++){
+        mapToBeSorted.set(citiesList[i], weatherTableData[i].current.temperature_2m)
+    }
+    weatherArray = Array.from(mapToBeSorted).sort()
 }
