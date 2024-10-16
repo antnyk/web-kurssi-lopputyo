@@ -1,4 +1,10 @@
 const weatherTable = document.getElementById('weatherTable')
+const countryTable = document.getElementById('countryTable')
+// radioButtons
+const cntAllRadioBtn = document.getElementById('cntAllRadioBtn')
+const cntAsiaRadioBtn = document.getElementById('cntAsiaRadioBtn')
+const cntEuropeRadioBtn = document.getElementById('cntEuropeRadioBtn')
+const cntAfricaRadioBtn = document.getElementById('cntAfricaRadioBtn')
 // buttons 
 const alertButton = document.getElementById('alertBtn')
 const timerStoptButton = document.getElementById('timerStoptBtn')
@@ -14,32 +20,50 @@ const inputWeatherValue = document.getElementById('weatherValue')
 
 let timerOn
 let weatherTableData
-let weatherArray
-let originalWeatherArray
 let sortWay
+// object arrays
+let originalObjWeatherArray = []
+let objectWeatherArray = []
+// html Criteria 4 arrays
+let objectCityArray = [
+    {continent: 'Europe', city: 'Helsinki'},
+    {continent: 'Europe', city: 'Berlin'},
+    {continent: 'Africa', city: 'Cairo'},
+    {continent: 'Africa', city: 'Kampala'},
+    {continent: 'Asia', city: 'Shenzhen'},
+    {continent: 'Europe', city: 'Tallinn'},
+]
+const originalObjectCityArray = objectCityArray
 
-weatherButtonAscending.addEventListener('click', ()=>sorter('wasc', weatherArray))
-weatherButtonDescenging.addEventListener('click', ()=>sorter('wdesc', weatherArray))
-cityButtonAscending.addEventListener('click', ()=>sorter('casc', weatherArray))
-cityButtonDescending.addEventListener('click', ()=>sorter('cdesc', weatherArray))
+// weather buttons
+weatherButtonAscending.addEventListener('click', ()=>sorter('wasc', objectWeatherArray))
+weatherButtonDescenging.addEventListener('click', ()=>sorter('wdesc', objectWeatherArray))
+cityButtonAscending.addEventListener('click', ()=>sorter('casc', objectWeatherArray))
+cityButtonDescending.addEventListener('click', ()=>sorter('cdesc', objectWeatherArray))
+// radioButtons
+cntAllRadioBtn.addEventListener('click', ()=> continentSelector('All'))
+cntAsiaRadioBtn.addEventListener('click', ()=> continentSelector('Asia'))
+cntEuropeRadioBtn.addEventListener('click', ()=> continentSelector('Europe'))
+cntAfricaRadioBtn.addEventListener('click', ()=> continentSelector('Africa'))
 
 inputWeatherValue.addEventListener('input', ()=>{
     updateWeatherValue()
     if (inputWeatherValue.value.length === 0){
-        sorter('wasc', originalWeatherArray)
+        sorter('wasc', originalObjWeatherArray)
         inputWeatherValue.value = null
     }
 })
 
 resetWeatherTableButton.addEventListener('click', ()=>{
-    sorter('wasc', originalWeatherArray)
-    weatherArray = originalWeatherArray
+    sorter('wasc', originalObjWeatherArray)
+    objectWeatherArray = originalObjWeatherArray
     inputWeatherValue.value = null
 })
 
 document.addEventListener('DOMContentLoaded', ()=>{
     getMultipleWeather()
-    setTimeout(() => sorter('wasc', weatherArray), 1000)
+    weartherTableInsert(objectCityArray, countryTable, 'continent', 'city')
+    setTimeout(() => sorter('wasc', objectWeatherArray), 1000)
 })
 
 alertButton.addEventListener('click', ()=>{
@@ -62,36 +86,51 @@ function isBigEnough(value) {
 }
 
 function updateWeatherValue(){
-    // we filter trought the originalWeatherArray, that was made when whe fetched the weather data
-    weatherArray = originalWeatherArray
+    // we filter trought the originalObjWeatherArray, that was made when whe fetched the weather data
+    objectWeatherArray = originalObjWeatherArray
 
     let weatherList = []
-    for (let i of weatherArray){
-        for (let j of i){
-            // adds data to weatherList if our data number is greater or equilavent to input number. Also checks that value has to be a number (what if the city is a number??? fix.)
-            if (isBigEnough(j) && !isNaN(j)){
-                weatherList.push(i)
-            }
+    for (let i of objectWeatherArray){
+        // adds data to weatherList if our data number is greater or equilavent to input number. Also checks that value has to be a number (what if the city is a number??? fix.)
+        if (isBigEnough(i.temperature) && !isNaN(i.temperature)){
+            weatherList.push(i)
         }
     }
-    weartherTableInsert(weatherList)
-    // we change the weatherArray values here since we want them used in sorter()
-    weatherArray = weatherList
+    weartherTableInsert(weatherList, weatherTable, 'city', 'temperature')
+    // we change the objectWeatherArray values here since we want them used in sorter()
+    objectWeatherArray = weatherList
 }
 
-function weartherTableInsert(userArray){
-    // this makes sure the first row isn't deleted [City, Weather]
-    while (weatherTable.rows.length > 1){
-        weatherTable.deleteRow(1)
+function weartherTableInsert(userArray, table, param1, param2){
+    // this makes sure the first row isn't deleted. for example [City, Weather]
+    while (table.rows.length > 1){
+        table.deleteRow(1)
     }
     for(let i = 0; i < userArray.length; i++){
         // creates a row
-        var row = weatherTable.insertRow(sortWay)
+        var row = table.insertRow(sortWay)
         // inserts the infos on the row
         var cell1 = row.insertCell(0)
         var cell2 = row.insertCell(1)
-        cell1.innerHTML = `${userArray[i][0]}` 
-        cell2.innerHTML = `${userArray[i][1]}°C`
+        cell1.innerHTML = `${userArray[i][param1]}` 
+        cell2.innerHTML = `${userArray[i][param2]}`
+    }
+}
+
+function continentSelector(selectedContinent){
+    if (selectedContinent !== 'All'){
+        objectCityArray = originalObjectCityArray
+        let assList = []
+        for (let i of objectCityArray){
+            if (i.continent===selectedContinent){
+                assList.push(i)
+            }
+        }
+        console.log(assList)
+        weartherTableInsert(assList, countryTable, 'continent', 'city')
+    }
+    else{
+        weartherTableInsert(originalObjectCityArray, countryTable, 'continent', 'city')
     }
 }
 
@@ -105,26 +144,25 @@ function task1Timer(){
 function sorter(type, userArray){
     // by city ascending
     if (type=='casc'){
-        userArray.sort()
+        userArray.sort((a, b) => a.city.localeCompare(b.city))
         sortWay = -1
     }
     // by city descending
     else if (type=='cdesc'){
-        userArray.sort()
+        userArray.sort((a, b) => a.city.localeCompare(b.city))
         sortWay = 1
     }
     // by weather ascending
     else if (type=='wasc'){
-        userArray.sort((a, b) => a[1] - b[1])
+        userArray.sort((a, b) => a.temperature - b.temperature)
         sortWay = 1
     }
     // by weather descending
     else if (type=='wdesc'){
-        userArray.sort((a, b) => a[1] - b[1])
+        userArray.sort((a, b) => a.temperature - b.temperature)
         sortWay = -1
     }
-
-    weartherTableInsert(userArray)
+    weartherTableInsert(userArray, weatherTable, 'city', 'temperature')
 }
 
 async function getMultipleWeather(){
@@ -163,10 +201,11 @@ async function getMultipleWeather(){
         console.error(e.message)
     }
 
-    const mapToBeSorted = new Map()
     for(let i = 0; i < weatherTableData.length; i++){
-        mapToBeSorted.set(citiesList[i], weatherTableData[i].current.temperature_2m)
+        let weatherObject = {city: citiesList[i], temperature: weatherTableData[i].current.temperature_2m + '°C'}
+        objectWeatherArray.push(weatherObject)
     }
-    weatherArray = Array.from(mapToBeSorted).sort()
-    originalWeatherArray = weatherArray
+    objectWeatherArray.sort()
+    originalObjWeatherArray = objectWeatherArray
+    console.log(originalObjWeatherArray)
 }

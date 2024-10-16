@@ -7,7 +7,11 @@
 
 table, th, td {
     border: 1px solid;
-  }
+}
+
+form input{
+    width: 10%;
+}
 
 main {
     width: 70%;

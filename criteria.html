@@ -37,10 +37,10 @@
                         <li><a href="#cssCriteria5"><b>CSS Criteria 5</a></b></li>
                     </ul>
                 </div>
-                
             </aside>
             <article>
-                <p>(14/20)</p>
+                <p>(18/20)</p>
+                
                 <h2>HTML CRITERIA</h2>
                 <section id="htmlCriteria1">
                     <h3>Html Criteria 1</h3>
@@ -55,27 +55,41 @@
                 <section id="htmlCriteria3">
                     <h3>Html Criteria 3</h3>
                     <p>Use of forms, links, and media.</p>
-                    <p>Forms = False; links = GitHub link; media = false</p>
+                    <iframe frameborder="0" scrolling="no" src="https://freesound.org/embed/sound/iframe/760132/simple/small/" width="375" height="30"></iframe>
+                    <p>forms = True. Form elements used: radio, button and text. Check the task below and Async Criteria 5</p>
+                    <p>links = True. GitHub link</p>
+                    <p>media = True. Images, Audio (Look up), Youtube video embedding worked but it kept posting failed GET requests on console so i removed it.</p>
                 </section>
                 <section id="htmlCriteria4">
                     <h3>Html Criteria 4</h3>
                     <p>Tables are effectively used.</p>
-                    <table>
+                    <form action="">
+                        <h4>Select continent</h4>
+                        <input type="radio" id="cntAllRadioBtn" name="continens" value="cntAllRadioBtn" checked>
+                        <label for="cntAllRadioBtn">All</label>
+                        <input type="radio" id="cntAsiaRadioBtn" name="continens" value="cntAsiaRadioBtn">
+                        <label for="cntAsiaRadioBtn">Asia</label>
+                        <input type="radio" id="cntEuropeRadioBtn" name="continens" value="cntEuropeRadioBtn">
+                        <label for="cntEuropeRadioBtn">Europe</label>
+                        <input type="radio" id="cntAfricaRadioBtn" name="continens" value="cntAfricaRadioBtn">
+                        <label for="cntAfricaRadioBtn">Africa</label><br>
+                    </form>
+                    <table id="countryTable">
                         <tr>
-                            <th>Category</th>
-                            <th>Number</th>
+                            <th>Continent</th>
+                            <th>City</th>
                         </tr>
                         <tr>
-                            <td>HTML</td>
-                            <td>4</td>
+                            <td>IF YOU SEE THIS</td>
+                            <td>SOMETHING IS WRONG</td>
                         </tr>
                     </table>
-                    <p>True. Check Async Criteria 5.</p>
+                    <p>True. Also check Async Criteria 5.</p>
                 </section>
                 <section id="htmlCriteria5">
                     <h3>Html Criteria 5</h3>
                     <p>HTML structure with clear content differentiation (headings, paragraphs, lists).</p>
-                    <p>True, but take a note that different pages need different type of structure.</p>
+                    <p>True. Take a note that different pages need different type of structure.</p>
                 </section>
 
                 <h2>CSS CRITERIA</h2>
@@ -120,12 +134,16 @@
                 <section id="jsCriteria3">
                     <h3>JS Criteria 3</h3>
                     <p>Use of arrays, objects, and functions.</p>
-                    <p>Use of arrays = false; objects = false; functions = true</p>
+                    <p>Use of arrays = True; objects = True; functions = True. All are used in Async Criteria 5</p>
+                    <img src="Images/Code/Screenshot 2024-10-15 164132.png" alt="Creating objects">
+                    <p>Creation of the objects.</p>
+                    <img src="Images/Code/Screenshot 2024-10-15 164207.png" alt="Example use">
+                    <p>Inserting data from objects to the table.</p>
                 </section>
                 <section id="jsCriteria4">
                     <h3>JS Criteria 4</h3>
                     <p>Advanced logic, looping through data, and dynamic DOM updates.</p>
-                    <p>False.</p>
+                    <p>True. MAKE IT BETTER TOUGH!</p>
                 </section>
                 <section id="jsCriteria5">
                     <h3>JS Criteria 5</h3>
@@ -155,14 +173,15 @@
                 <section id="asyncCriteria4">
                     <h3>Async Criteria 4</h3>
                     <p>Error handling is implemented (for failed API calls, etc.).</p>
-                    <img src="Images/Screenshot 2024-10-10 183555.png" alt="Example">
+                    <img src="Images/Code/Screenshot 2024-10-10 183555.png" alt="Example">
                     <p>True. Here is picture of error handling when getting weather data.</p>
-                    <img src="Images/Screenshot 2024-10-10 1840.png" alt="ErrorExample">
+                    <img src="Images/Code/Screenshot 2024-10-10 1840.png" alt="ErrorExample">
                     <p>Example of failed fetching.</p>
                 </section>
                 <section id="asyncCriteria5">
                     <h3>Async Criteria 5</h3>
                     <p>Effective use of asynchronous data to enhance user experience (like filtering, sorting).</p>
+                    <button id="resetWeatherTable">reset</button>
                     <h4>Filtering</h4>
                     <label for="weatherValue">Weather more then:</label>
                     <input type="text" name="weatherValue" id="weatherValue" size="2">
@@ -176,7 +195,7 @@
                             <th>Weather</th>
                         </tr>
                     </table>
-                    <p>Sorting done. Filtering done.</p>
+                    <p>True</p>
                 </section>
 
             </article>
