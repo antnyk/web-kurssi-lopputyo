@@ -5,6 +5,45 @@
     overflow-x: hidden;
 }
 
+table, th, td {
+    border: 1px solid;
+}
+
+form input{
+    width: 10%;
+}
+
+main {
+    width: 70%;
+    margin: 0 auto;
+    background-color: #6497b1;
+    display: grid;
+    height: auto;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+}
+
+aside {
+    background-color: grey;
+    grid-column-start: span 1;
+}
+
+article{
+    padding: 30px;
+    grid-column-start: span 2;
+    background-color: #6497b1;
+}
+
+section{
+    padding: 10px;
+    margin: 25px 0;
+    background-color: #2a9df4;
+}
+
+section *{
+    padding-bottom: 5px;
+}
+
 body{
     font-family: "Roboto", sans-serif;
     font-weight: 400;
@@ -48,7 +87,14 @@ header ul li a{
     display: inline-block;
 }
 
-li a::after{
+aside ul li a{
+    padding: 25px 5px 0px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    display: inline-block;
+}
+
+header li a::after{
     content: '';
     display: block;
     border-radius: 25px;
@@ -58,21 +104,13 @@ li a::after{
     transition: all .5s;
 }
 
-li a:hover::after{
+header li a:hover::after{
     width: 100%;
 }
 
 .content h2{
     font-size: 50px;
     text-align: center;
-}
-
-main {
-    background-color: #6497b1;
-    display: flex;
-    height: 100vh;
-    align-items: center;
-    justify-content: space-around;
 }
 
 .workexp li{
@@ -84,36 +122,11 @@ main {
     max-height: auto;
 }
 
-.mainImage{
-    max-width: 670px;
-    height: auto;
-}
-
-.innerContent{
-    padding-top: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    padding-bottom: 160px;
-}
-
-.contentLeft{
-    display: block;
-    padding-left: 30px;
-}
-
 .roundedPicture{
     border-radius: 50%;
     max-width:800px;
     width: 100%;
     height: auto;
-}
-
-.contentRight{
-    width: inline-block;
-    max-width: 430px;
-    padding-left: 50px;
-    padding-right: 30px;
 }
 
 footer{
@@ -173,17 +186,10 @@ img, div, section {
         text-decoration: none; 
         width: 20%;
     }
-    .contentLeft{
-        padding-right: 30px;
-        width: 100%;
-    }
     main{
         height: auto;
         display: grid;
-    }
-    .innerContent {
-        display: grid;
-        grid-template-columns: 1fr; 
+        width: 100%;
     }
     *{
         width: 100%;
