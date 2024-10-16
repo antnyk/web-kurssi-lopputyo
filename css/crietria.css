@@ -195,3 +195,12 @@ img, div, section {
         width: 100%;
     }
 }
+
+@media (max-width:576px) {
+    aside{
+        display:none
+    }
+    article{
+        grid-column-start: span 3;
+    }
+}
