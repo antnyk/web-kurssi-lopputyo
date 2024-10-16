@@ -91,9 +91,11 @@ function updateWeatherValue(){
 
     let weatherList = []
     for (let i of objectWeatherArray){
+        console.log(i.temperature)
         // adds data to weatherList if our data number is greater or equilavent to input number. Also checks that value has to be a number (what if the city is a number??? fix.)
         if (isBigEnough(i.temperature) && !isNaN(i.temperature)){
             weatherList.push(i)
+            console.log(i)
         }
     }
     weartherTableInsert(weatherList, weatherTable, 'city', 'temperature')
