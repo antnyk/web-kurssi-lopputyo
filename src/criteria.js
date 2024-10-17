@@ -49,6 +49,7 @@ cntAfricaRadioBtn.addEventListener('click', ()=> continentSelector('Africa'))
 inputWeatherValue.addEventListener('input', ()=>{
     updateWeatherValue()
     if (inputWeatherValue.value.length === 0){
+        objectWeatherArray = originalObjWeatherArray
         sorter('wasc', originalObjWeatherArray)
         inputWeatherValue.value = null
     }
@@ -95,7 +96,6 @@ function updateWeatherValue(){
         // adds data to weatherList if our data number is greater or equilavent to input number. Also checks that value has to be a number (what if the city is a number??? fix.)
         if (isBigEnough(i.temperature) && !isNaN(i.temperature)){
             weatherList.push(i)
-            console.log(i)
         }
     }
     weartherTableInsert(weatherList, weatherTable, 'city', 'temperature')
@@ -122,14 +122,13 @@ function weartherTableInsert(userArray, table, param1, param2){
 function continentSelector(selectedContinent){
     if (selectedContinent !== 'All'){
         objectCityArray = originalObjectCityArray
-        let assList = []
+        let filteredArray = []
         for (let i of objectCityArray){
             if (i.continent===selectedContinent){
-                assList.push(i)
+                filteredArray.push(i)
             }
         }
-        console.log(assList)
-        weartherTableInsert(assList, countryTable, 'continent', 'city')
+        weartherTableInsert(filteredArray, countryTable, 'continent', 'city')
     }
     else{
         weartherTableInsert(originalObjectCityArray, countryTable, 'continent', 'city')
@@ -204,10 +203,9 @@ async function getMultipleWeather(){
     }
 
     for(let i = 0; i < weatherTableData.length; i++){
-        let weatherObject = {city: citiesList[i], temperature: weatherTableData[i].current.temperature_2m + '°C'}
+        let weatherObject = {city: citiesList[i], temperature: weatherTableData[i].current.temperature_2m}
         objectWeatherArray.push(weatherObject)
     }
     objectWeatherArray.sort()
     originalObjWeatherArray = objectWeatherArray
-    console.log(originalObjWeatherArray)
 }
