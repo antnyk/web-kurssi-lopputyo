@@ -9,12 +9,10 @@ body {
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-style: normal;
+    min-height: 100vh; /* Ensure body fills viewport */
+    display: flex;
+    flex-direction: column;
 }
-
-html, body {
-    height: 100%;
-}
-
 
 header {
     height: 100px;
@@ -54,17 +52,23 @@ li a:hover::after {
     width: 100%;
 }
 
-.container {
+main {
+    padding-top: 30px;
     background-color: #6497b1;
-    display: grid;
-    align-items: center; 
-    grid-template-columns: 1fr 1fr;
-    column-gap: 5px;
+    display: flex;
+    flex: 1; /* Allow main to take remaining space */
+    align-items: start;
+    justify-content: center;
+    padding-bottom: 20px; 
 }
 
-img {
-    max-width: 100%;
-    max-height:100%;
+.mainImage {
+    max-width: 670px;
+    height: auto;
+}
+
+.contentLeft {
+    width: 30%;
 }
 
 footer {
@@ -144,7 +148,7 @@ p{
         padding-left: 30px;
     }
 
-    .container {
+    main {
         display: inline-grid;
         grid-template-columns: 1fr;
     }
