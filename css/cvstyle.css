@@ -84,11 +84,6 @@ main {
     max-height: auto;
 }
 
-.mainImage{
-    max-width: 670px;
-    height: auto;
-}
-
 .innerContent{
     padding-top: 30px;
     display: flex;
