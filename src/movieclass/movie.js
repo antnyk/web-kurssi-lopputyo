@@ -24,13 +24,13 @@ class Movie {
     }
 }
 
-let assholeBook = new Movie('Cocks and balls', 'Mike Dicker')
+let badBook = new Movie('Horrible', 'Mike Dicker')
 
-console.log(assholeBook.director)
-console.log(assholeBook.name)
+console.log(badBook.director)
+console.log(badBook.name)
 
-assholeBook.name = 'Movie movie movie'
+badBook.name = 'Movie movie movie'
 
-console.log(assholeBook.name)
+console.log(badBook.name)
 
 export default Movie

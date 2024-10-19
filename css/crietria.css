@@ -19,14 +19,14 @@ main {
     background-color: #6497b1;
     display: grid;
     height: auto;
-    grid-template-columns: minmax(200px, 250px) 1fr 1fr;
+    grid-template-columns: minmax(200px, 220px) 1fr 1fr;
     grid-template-rows: auto;
 }
 
 aside {
     background-color: grey;
     grid-column-start: span 1;
-    max-width: 250px;
+    max-width: 220px;
 }
 
 article{
