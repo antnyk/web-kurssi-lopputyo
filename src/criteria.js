@@ -6,6 +6,7 @@ const cntAsiaRadioBtn = document.getElementById('cntAsiaRadioBtn')
 const cntEuropeRadioBtn = document.getElementById('cntEuropeRadioBtn')
 const cntAfricaRadioBtn = document.getElementById('cntAfricaRadioBtn')
 // buttons 
+const reloadWeatherDataButton = document.getElementById('reloadWeatherData')
 const alertButton = document.getElementById('alertBtn')
 const timerStoptButton = document.getElementById('timerStoptBtn')
 const timerStartButton = document.getElementById('timerStartBtn')
@@ -18,6 +19,9 @@ const cityButtonDescending = document.getElementById('cityAlphaDESC')
 // filtering
 const inputWeatherValue = document.getElementById('weatherValue')
 
+//used for fetch button on asyncCriteria5
+let reloadTimerOn
+// used for timer test
 let timerOn
 let weatherTableData
 let sortWay
@@ -49,8 +53,19 @@ cntAfricaRadioBtn.addEventListener('click', ()=> continentSelector('Africa'))
 inputWeatherValue.addEventListener('input', ()=>{
     updateWeatherValue()
     if (inputWeatherValue.value.length === 0){
+        objectWeatherArray = originalObjWeatherArray
         sorter('wasc', originalObjWeatherArray)
         inputWeatherValue.value = null
+    }
+})
+
+reloadWeatherDataButton.addEventListener('click', ()=>{
+    // people can't spam this. only able to be used after 5 seconds
+    if (!reloadTimerOn){
+        getMultipleWeather()
+        // This will be set false in getMultipleWeather
+        reloadTimerOn = true
+        sorter('wasc', originalObjWeatherArray)
     }
 })
 
@@ -91,6 +106,7 @@ function updateWeatherValue(){
 
     let weatherList = []
     for (let i of objectWeatherArray){
+        console.log(i.temperature)
         // adds data to weatherList if our data number is greater or equilavent to input number. Also checks that value has to be a number (what if the city is a number??? fix.)
         if (isBigEnough(i.temperature) && !isNaN(i.temperature)){
             weatherList.push(i)
@@ -120,14 +136,13 @@ function weartherTableInsert(userArray, table, param1, param2){
 function continentSelector(selectedContinent){
     if (selectedContinent !== 'All'){
         objectCityArray = originalObjectCityArray
-        let assList = []
+        let filteredArray = []
         for (let i of objectCityArray){
             if (i.continent===selectedContinent){
-                assList.push(i)
+                filteredArray.push(i)
             }
         }
-        console.log(assList)
-        weartherTableInsert(assList, countryTable, 'continent', 'city')
+        weartherTableInsert(filteredArray, countryTable, 'continent', 'city')
     }
     else{
         weartherTableInsert(originalObjectCityArray, countryTable, 'continent', 'city')
@@ -170,6 +185,7 @@ async function getMultipleWeather(){
     latitudeList = [60.192059, -37.840935, 40.730610, 39.925533, 69.3355265]
     longitudeList = [24.945831, 144.946457, -73.935242, 32.866287, 88.2243754]
 
+    // test link Helsinki -> https://api.open-meteo.com/v1/forecast?latitude=60.192059&longitude=24.945831&current=temperature_2m
     let url = (lat, lon) => `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current=temperature_2m`
 
     // we create a new list that stores all the urls that we want
@@ -192,20 +208,27 @@ async function getMultipleWeather(){
                 throw new Error ('Error in some url link')
             }
         }
-        // goes trought the res in order for us to get the json data
+        // goes trought the result in order for us to get the json data
         const data = await Promise.all(res.map(json => json.json()))
-
         weatherTableData = data
+        originalObjWeatherArray = []
+        objectWeatherArray = []
+        // filling the array
+        for(let i = 0; i < weatherTableData.length; i++){
+            let weatherObject = {city: citiesList[i], temperature: weatherTableData[i].current.temperature_2m}
+            objectWeatherArray.push(weatherObject)
+        }
+        objectWeatherArray.sort()
+        originalObjWeatherArray = objectWeatherArray
+        console.log('succesful fetch')
     }
     catch (e) {
         console.error(e.message)
+    } finally {
+        setTimeout(() => {
+            reloadTimerOn = false
+            const date1 = new Date();
+            console.log('timer success ' + date1)
+        }, 5000)
     }
-
-    for(let i = 0; i < weatherTableData.length; i++){
-        let weatherObject = {city: citiesList[i], temperature: weatherTableData[i].current.temperature_2m + '°C'}
-        objectWeatherArray.push(weatherObject)
-    }
-    objectWeatherArray.sort()
-    originalObjWeatherArray = objectWeatherArray
-    console.log(originalObjWeatherArray)
 }

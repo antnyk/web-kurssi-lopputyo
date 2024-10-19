@@ -7,23 +7,22 @@
     <link rel="stylesheet" href="css/crietria.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Project</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="">Crit</a></li>
-                    <li><a href="cv.html">CV</a></li>
-                    <li><a href="https://github.com/antnyk" target="_blank">GitHub</a></li>
-                </ul>
-                <a href="#" class="mobile">&#9776;</a>
-            </nav>
-        </header>
-        <main>
+    <header>
+        <h1>Project</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="">Crit</a></li>
+                <li><a href="cv.html">CV</a></li>
+                <li><a href="https://github.com/antnyk" target="_blank">GitHub</a></li>
+            </ul>
+            <a href="#" class="mobile">&#9776;</a>
+        </nav>
+    </header>
+    <main>
             <aside>
                 <div class="sidenav">
-                    <!-- Automate with js so I get a point -->
+                    <!-- Automate this if you have time -->
                     <ul>
                         <li><a href="#htmlCriteria1"><b>HTML Criteria 1</a></b></li>
                         <li><a href="#htmlCriteria2"><b>HTML Criteria 2</a></b></li>
@@ -35,11 +34,21 @@
                         <li><a href="#cssCriteria3"><b>CSS Criteria 3</a></b></li>
                         <li><a href="#cssCriteria4"><b>CSS Criteria 4</a></b></li>
                         <li><a href="#cssCriteria5"><b>CSS Criteria 5</a></b></li>
+                        <li><a href="#jsCriteria1"><b>JS Criteria 1</a></b></li>
+                        <li><a href="#jsCriteria2"><b>JS Criteria 2</a></b></li>
+                        <li><a href="#jsCriteria3"><b>JS Criteria 3</a></b></li>
+                        <li><a href="#jsCriteria4"><b>JS Criteria 4</a></b></li>
+                        <li><a href="#jsCriteria5"><b>JS Criteria 5</a></b></li>
+                        <li><a href="#asyncCriteria1"><b>Async Criteria 1</a></b></li>
+                        <li><a href="#asyncCriteria2"><b>Async Criteria 2</a></b></li>
+                        <li><a href="#asyncCriteria3"><b>Async Criteria 3</a></b></li>
+                        <li><a href="#asyncCriteria4"><b>Async Criteria 4</a></b></li>
+                        <li><a href="#asyncCriteria5"><b>Async Criteria 5</a></b></li>
                     </ul>
                 </div>
             </aside>
             <article>
-                <p>(18/20)</p>
+                <p>(19/20)!</p>
                 
                 <h2>HTML CRITERIA</h2>
                 <section id="htmlCriteria1">
@@ -104,9 +113,9 @@
                     <p>True</p>
                 </section>
                 <section id="cssCriteria3">
-                    <h3>CSS Criteria 1</h3>
+                    <h3>CSS Criteria 3</h3>
                     <p>Implementation of responsive design elements.</p>
-                    <p>True and False. CV site works like intendent, but Home page has problems and also this page.</p>
+                    <p>True. Different pages respond differently. Main page could be improved.</p>
                 </section>
                 <section id="cssCriteria4">
                     <h3>CSS Criteria 4</h3>
@@ -181,9 +190,12 @@
                 <section id="asyncCriteria5">
                     <h3>Async Criteria 5</h3>
                     <p>Effective use of asynchronous data to enhance user experience (like filtering, sorting).</p>
+                    <h4>Make a new fetch</h4>
+                    <button id="reloadWeatherData">fetch</button>
+                    <h4>Reset the list settings</h4>
                     <button id="resetWeatherTable">reset</button>
                     <h4>Filtering</h4>
-                    <label for="weatherValue">Weather more then:</label>
+                    <label for="weatherValue">Weather atleast:</label>
                     <input type="text" name="weatherValue" id="weatherValue" size="2">
                     <h4>Sorting</h4>
                     <p>City alphabetical: <button id="cityAlphaASC">^</button> <button id="cityAlphaDESC">v</button></p>
@@ -192,10 +204,9 @@
                     <table id="weatherTable">
                         <tr>
                             <th>City</th>
-                            <th>Weather</th>
+                            <th>Weather °C</th>
                         </tr>
                     </table>
-                    <p>True</p>
                 </section>
 
             </article>
@@ -205,7 +216,7 @@
         </footer>
     </div>
 </body>
-    <script src="js/index.js"></script>
-    <script src="js/criteria.js"></script>
-    <script src="js/menu.js"></script>
+    <script src="src/index.js"></script>
+    <script src="src/criteria.js"></script>
+    <script src="src/menu.js"></script>
 </html>
