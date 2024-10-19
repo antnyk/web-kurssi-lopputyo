@@ -115,20 +115,9 @@ header li a:hover::after{
     text-align: center;
 }
 
-.workexp li{
-    padding-left: 10px;
-}
-
 .content{
     background-color: #005b96;
     max-height: auto;
-}
-
-.roundedPicture{
-    border-radius: 50%;
-    max-width:800px;
-    width: 100%;
-    height: auto;
 }
 
 footer{
@@ -178,7 +167,7 @@ img, div, section {
         align-items: center
     }
     nav ul li a{
-        width: 50%;
+        width: 80%;
         align-items: center;
     }
     a.mobile{
