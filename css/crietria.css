@@ -35,6 +35,7 @@ article{
     background-color: #6497b1;
 }
 
+
 section{
     border-radius: 10px;
     padding: 10px;
@@ -50,6 +51,8 @@ body{
     font-family: "Roboto", sans-serif;
     font-weight: 400;
     font-style: normal;
+    background-image: url('../Images/xneg_1.png');
+    background-repeat: repeat;
 }
 
 header{
@@ -90,7 +93,7 @@ header ul li a{
 }
 
 aside ul li a{
-    padding: 25px 5px 0px;
+    padding: 25px 5px;
     text-decoration: none;
     color: rgb(0, 0, 0);
     display: inline-block;
@@ -113,11 +116,6 @@ header li a:hover::after{
 .content h2{
     font-size: 50px;
     text-align: center;
-}
-
-.content{
-    background-color: #005b96;
-    max-height: auto;
 }
 
 footer{
@@ -148,12 +146,14 @@ img, div, section {
         align-items: center; 
         padding: 0 30px;
     }
+
     nav{
         position: static;
         display: flex;
         justify-content: flex-end;
         align-items: center;  
     }
+
     nav ul{
         display: none;
         width: 100%;
@@ -166,10 +166,12 @@ img, div, section {
         text-align: center;
         align-items: center
     }
+
     nav ul li a{
         width: 80%;
         align-items: center;
     }
+
     a.mobile{
         display: flex;
         color: azure;
@@ -177,11 +179,11 @@ img, div, section {
         text-decoration: none; 
         width: 20%;
     }
+
     main{
-        height: auto;
-        display: grid;
         width: 100%;
     }
+
     *{
         width: 100%;
     }
@@ -191,6 +193,7 @@ img, div, section {
     aside{
         display:none
     }
+
     article{
         grid-column-start: span 3;
     }

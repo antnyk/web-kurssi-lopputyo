@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow-x: hidden;
 }
 
 body{
@@ -81,7 +80,6 @@ main {
 
 .content{
     background-color: #005b96;
-    max-height: auto;
 }
 
 .innerContent{
@@ -97,18 +95,17 @@ main {
     padding-left: 30px;
 }
 
-.roundedPicture{
+.contentRight{
+    max-width: 430px;
+    padding-left: 50px;
+    padding-right: 30px;
+}
+
+#roundedPicture{
     border-radius: 50%;
     max-width:800px;
     width: 100%;
     height: auto;
-}
-
-.contentRight{
-    width: inline-block;
-    max-width: 430px;
-    padding-left: 50px;
-    padding-right: 30px;
 }
 
 footer{
@@ -173,7 +170,6 @@ img, div, section {
         width: 100%;
     }
     main{
-        height: auto;
         display: grid;
     }
     .innerContent {
