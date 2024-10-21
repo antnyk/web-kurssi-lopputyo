@@ -1,5 +1,7 @@
 # Website project
 
+Link to website: [website](https://antnyk.github.io/web-kurssi-lopputyo/index.html)
+
 ## Criterias (19/20)
 
 ### HTML criteria 1
